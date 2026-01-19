@@ -4,25 +4,26 @@ name: Aviso Lotofácil
 on:
   schedule:
     - cron: '0 20 * * *'  # Roda todo dia às 20h UTC
-  workflow_dispatch:      # Permite rodar manualmente
+  workflow_dispatch:
 
 jobs:
   run-script:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
 
-      - name: Setup Python
+    steps:
+      - name: Checkout repositório
+        uses: actions/checkout@v3
+
+      - name: Configura Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
 
-      - name: Install dependencies
+      - name: Instala dependências
         run: pip install requests
 
-      - name: Run Lotofacil script
+      - name: Executa script Lotofácil
         run: python lotofacil_alert.py
         env:
           TOKEN: secrets.TOKEN 
           CHAT_ID:{{ secrets.CHAT_ID }}
-
