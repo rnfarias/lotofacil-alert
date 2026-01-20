@@ -1,27 +1,23 @@
-yaml
+```yaml
 name: Aviso Lotofacil
-
 on:
-  schedule:
-    - cron: '0 20 * * *'
-  workflow_dispatch:
-
+schedule:
+- cron: '0 20 * * *'
+ workflow_dispatch:
 jobs:
   run-script:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-
       - name: Install dependencies
         run: pip install requests
 
-      - name: Run Lotofacil script
+      - name: Run script
         run: python lotofacil_alert.py
         env:
           TOKEN: secrets.TOKEN 
