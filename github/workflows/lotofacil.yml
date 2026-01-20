@@ -17,5 +17,5 @@ jobs:
       - run: pip install requests
       - run: python lotofacil_alert.py
         env:
-          TOKEN: secrets.TOKEN 
-          CHAT_ID:{{ secrets.CHAT_ID }}
+          TOKEN:secrets.TOKEN 
+          CHAT_ID:${{ secrets.CHAT_ID }}
