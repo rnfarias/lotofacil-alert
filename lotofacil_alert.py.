@@ -1,0 +1,33 @@
+python
+import os
+import requests
+
+def verificar_acumulado():
+    # Exemplo: consultar API pública da Lotofácil (substitua pela API real que usar)
+    url = "https://servicebus2.caixa.gov.br/portaldeloterias/api/lotofacil"
+    response = requests.get(url)
+    data = response.json()
+
+    acumulado = data['acumulado']  # Supondo que exista essa chave
+    return acumulado
+
+def enviar_telegram(mensagem):
+    token = os.getenv('TOKEN')
+    chat_id = os.getenv('CHAT_ID')
+    url = f"https://api.telegram.org/bot{token}/sendMessage"
+    payload = {
+        'chat_id': chat_id,
+        'text': mensagem
+    }
+    response = requests.post(url, data=payload)
+    return response.json()
+
+def main():
+    if verificar_acumulado():
+        msg = "Lotofácil acumulou! Hora de tentar a sorte!"
+        enviar_telegram(msg)
+    else:
+        print("Não acumulou, nada a fazer.")
+
+if _name_ == "_main_":
+    main()
