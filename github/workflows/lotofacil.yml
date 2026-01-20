@@ -1,29 +1,23 @@
 yaml
 name: Aviso Lotofácil
-
 on:
-  schedule:
-    - cron: '0 20 * * *'  # Roda todo dia às 20h UTC
-  workflow_dispatch:
-
+schedule:
+- cron: '0 20 * * *'  # Roda todo dia às 20h UTC
+workflow_dispatch:
 jobs:
-  run-script:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repositório
-        uses: actions/checkout@v3
-
-      - name: Configura Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-
-      - name: Instala dependências
-        run: pip install requests
-
-      - name: Executa script Lotofácil
-        run: python lotofacil_alert.py
-        env:
-          TOKEN: secrets.TOKEN 
-          CHAT_ID:{{ secrets.CHAT_ID }}
+ run-script:
+ runs-on: ubuntu-latest
+steps:
+- name: Checkout repositório
+uses: actions/checkout@v3
+- name: Configura Python
+uses: actions/setup-python@v4
+with:
+python-version: '3.11'
+name: Instala dependências
+run: pip install requests
+- name: Executa script Lotofácil
+ run: python lotofacil_alert.py
+ env:
+TOKEN: secrets.TOKEN 
+CHAT_ID:{{ secrets.CHAT_ID }}
